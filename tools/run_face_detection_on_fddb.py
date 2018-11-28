@@ -1,18 +1,26 @@
 from __future__ import division
 import _init_paths
+
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
+
 from fast_rcnn.config import cfg
 from fast_rcnn.test import im_detect
 from fast_rcnn.nms_wrapper import nms
 from utils.timer import Timer
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import scipy.io as sio
-import caffe, os, sys, cv2
+import os, sys, cv2
+# sys.path.insert(0,'/home/zjian30/test/face-py-faster-rcnn/caffe-fast-rcnn/python/caffe')
+# import caffe_rcnn as caffe
+import caffe
 import argparse
 import sys
 
 NETS = {'vgg16': ('VGG16',
-          'output/faster_rcnn_end2end/train/vgg16_faster_rcnn_iter_80000.caffemodel')}
+          '/home/zjian30/test/face-py-faster-rcnn/output/faster_rcnn_end2end/train/vgg16_faster_rcnn_iter_80000.caffemodel')}
 
 def get_imdb_fddb(data_dir):
   imdb = []
@@ -83,12 +91,12 @@ if __name__ == '__main__':
 
   args = parse_args()
 
-  prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
-              'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
-  caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
-                NETS[args.demo_net][1])
+#   prototxt = os.path.join(cfg.MODELS_DIR, NETS[args.demo_net][0],
+#               'faster_rcnn_alt_opt', 'faster_rcnn_test.pt')
+#   caffemodel = os.path.join(cfg.DATA_DIR, 'faster_rcnn_models',
+#                 NETS[args.demo_net][1])
 
-  prototxt = 'models/face/VGG16/faster_rcnn_end2end/test.prototxt'
+  prototxt = '/home/zjian30/test/face-py-faster-rcnn/models/face/VGG16/faster_rcnn_end2end/test.prototxt'
   caffemodel = NETS[args.demo_net][1]
 
   if not os.path.isfile(caffemodel):
@@ -105,8 +113,8 @@ if __name__ == '__main__':
 
   print '\n\nLoaded network {:s}'.format(caffemodel)
 
-  data_dir = 'data/FDDB/'
-  out_dir = 'output/fddb_res'
+  data_dir = '/home/zjian30/test/face-py-faster-rcnn/data/FDDB/'
+  out_dir = '/home/zjian30/test/face-py-faster-rcnn/output/fddb_res'
 
   if not os.path.exists(out_dir):
     os.makedirs(out_dir)
@@ -122,6 +130,7 @@ if __name__ == '__main__':
     _, _= im_detect(net, im)
 
   nfold = len(imdb)
+
   for i in xrange(nfold):
     image_names = imdb[i]
 
