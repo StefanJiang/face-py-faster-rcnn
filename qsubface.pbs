@@ -8,7 +8,7 @@
 #PBS -q batch
 
 ##PBS -e /home/zjian30/test/face-py-faster-rcnn/data/demo/error
-##PBS -o /home/zjian30/test/face-py-faster-rcnn/data/demo/output
+#PBS -o /home/zjian30/test/face-py-faster-rcnn/data/demo/output
 
 
 ######/home/zjian30/testgpu0.sh
